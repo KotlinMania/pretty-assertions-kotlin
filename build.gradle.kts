@@ -57,7 +57,11 @@ kotlin {
         binaries.framework { baseName = "PrettyAssertions"; xcf.add(this) }
     }
     iosSimulatorArm64 {
-        binaries.framework { baseName = "PrettyAssertions"; xcf.add(this) }
+        binaries.framework {
+            baseName = "PrettyAssertions"
+            isStatic = true
+            xcf.add(this)
+        }
     }
     iosX64 {
         binaries.framework { baseName = "PrettyAssertions"; xcf.add(this) }
