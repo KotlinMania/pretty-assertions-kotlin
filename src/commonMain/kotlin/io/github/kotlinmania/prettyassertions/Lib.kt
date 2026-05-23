@@ -19,7 +19,7 @@ package io.github.kotlinmania.prettyassertions
  * displayed as a pretty diff. The values may have different types, although in
  * practice they are usually the same.
  */
-class Comparison<TLeft, TRight> private constructor(
+internal class Comparison<TLeft, TRight> private constructor(
     private val left: TLeft,
     private val right: TRight,
 ) {
@@ -52,7 +52,7 @@ class Comparison<TLeft, TRight> private constructor(
  * representation, [StrComparison] uses the string values directly, resulting in
  * multi-line output for multi-line strings.
  */
-class StrComparison<TLeft, TRight> private constructor(
+internal class StrComparison<TLeft, TRight> private constructor(
     private val left: TLeft,
     private val right: TRight,
 ) {
