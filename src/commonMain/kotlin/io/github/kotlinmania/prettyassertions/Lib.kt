@@ -183,15 +183,15 @@ private fun structuralEquals(left: Any?, right: Any?): Boolean =
 private fun prettyDebug(value: Any?): String =
     when (value) {
         null -> "null"
-        is ByteArray -> value.joinToString(prefix = "[\n", postfix = "\n]") { "    $it," }
-        is ShortArray -> value.joinToString(prefix = "[\n", postfix = "\n]") { "    $it," }
-        is IntArray -> value.joinToString(prefix = "[\n", postfix = "\n]") { "    $it," }
-        is LongArray -> value.joinToString(prefix = "[\n", postfix = "\n]") { "    $it," }
-        is UByteArray -> value.joinToString(prefix = "[\n", postfix = "\n]") { "    $it," }
-        is UShortArray -> value.joinToString(prefix = "[\n", postfix = "\n]") { "    $it," }
-        is UIntArray -> value.joinToString(prefix = "[\n", postfix = "\n]") { "    $it," }
-        is ULongArray -> value.joinToString(prefix = "[\n", postfix = "\n]") { "    $it," }
-        is Array<*> -> value.joinToString(prefix = "[\n", postfix = "\n]") { "    ${prettyDebug(it)}," }
-        is Iterable<*> -> value.joinToString(prefix = "[\n", postfix = "\n]") { "    ${prettyDebug(it)}," }
+        is ByteArray -> value.joinToString(prefix = "[\n", postfix = "\n]", separator = "\n") { "    $it," }
+        is ShortArray -> value.joinToString(prefix = "[\n", postfix = "\n]", separator = "\n") { "    $it," }
+        is IntArray -> value.joinToString(prefix = "[\n", postfix = "\n]", separator = "\n") { "    $it," }
+        is LongArray -> value.joinToString(prefix = "[\n", postfix = "\n]", separator = "\n") { "    $it," }
+        is UByteArray -> value.joinToString(prefix = "[\n", postfix = "\n]", separator = "\n") { "    $it," }
+        is UShortArray -> value.joinToString(prefix = "[\n", postfix = "\n]", separator = "\n") { "    $it," }
+        is UIntArray -> value.joinToString(prefix = "[\n", postfix = "\n]", separator = "\n") { "    $it," }
+        is ULongArray -> value.joinToString(prefix = "[\n", postfix = "\n]", separator = "\n") { "    $it," }
+        is Array<*> -> value.joinToString(prefix = "[\n", postfix = "\n]", separator = "\n") { "    ${prettyDebug(it)}," }
+        is Iterable<*> -> value.joinToString(prefix = "[\n", postfix = "\n]", separator = "\n") { "    ${prettyDebug(it)}," }
         else -> value.toString()
     }
