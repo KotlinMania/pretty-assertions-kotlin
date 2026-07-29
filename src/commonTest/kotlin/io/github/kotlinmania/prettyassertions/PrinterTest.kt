@@ -57,7 +57,8 @@ class PrinterTest {
 
     @Test
     fun writeLinesStruct() {
-        val left = """
+        val left =
+            """
             |Some(
             |    Foo {
             |        lorem: "Hello World!",
@@ -67,8 +68,9 @@ class PrinterTest {
             |        ),
             |    },
             |)
-        """.trimMargin()
-        val right = """
+            """.trimMargin()
+        val right =
+            """
             |Some(
             |    Foo {
             |        lorem: "Hello Wrold!",
@@ -78,7 +80,7 @@ class PrinterTest {
             |        ),
             |    },
             |)
-        """.trimMargin()
+            """.trimMargin()
         val expected =
             " Some(\n" +
                 "     Foo {\n" +
@@ -127,7 +129,8 @@ class PrinterTest {
 
     @Test
     fun writeLinesIssue12() {
-        val left = """
+        val left =
+            """
             |[
             |    0,
             |    0,
@@ -138,15 +141,16 @@ class PrinterTest {
             |    5,
             |    64,
             |]
-        """.trimMargin()
-        val right = """
+            """.trimMargin()
+        val right =
+            """
             |[
             |    84,
             |    248,
             |    45,
             |    64,
             |]
-        """.trimMargin()
+            """.trimMargin()
         val expected =
             " [\n" +
                 "${RED_LIGHT}<    0,$RESET\n" +

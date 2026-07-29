@@ -123,16 +123,16 @@ fun <TLeft, TRight> assertNe(left: TLeft, right: TRight, message: String? = null
     }
 }
 
-internal class PrettyAssertionFailure(message: String) : AssertionError(message)
+internal class PrettyAssertionFailure(
+    message: String,
+) : AssertionError(message)
 
 // assert_matches! is not ported: the upstream macro uses Rust pattern
 // matching syntax (pat, if guard, ref bindings) and stringify!(pat) for
 // diff output, which have no Kotlin equivalent. There is no Kotlin macro
 // system to capture and stringify a pattern at compile time.
 
-private fun failAssertion(message: String): Nothing {
-    throw PrettyAssertionFailure(message)
-}
+private fun failAssertion(message: String): Nothing = throw PrettyAssertionFailure(message)
 
 internal interface CompareAsStrByDefault
 
@@ -151,7 +151,8 @@ private data class DebugComparisonFactory<TLeft, TRight>(
 private data class StringComparisonFactory<TLeft : CharSequence, TRight : CharSequence>(
     private val left: TLeft,
     private val right: TRight,
-) : CreateComparison<StrComparison<TLeft, TRight>>, CompareAsStrByDefault {
+) : CreateComparison<StrComparison<TLeft, TRight>>,
+    CompareAsStrByDefault {
     override fun createComparison(): StrComparison<TLeft, TRight> =
         StrComparison.new(left, right)
 }
