@@ -85,7 +85,7 @@ internal class StrComparison<TLeft, TRight> private constructor(
  * representation, or from the direct string values when both sides are strings.
  */
 fun <TLeft, TRight> assertEq(left: TLeft, right: TRight, message: String? = null) {
-    if (left != right) {
+    if (!structuralEquals(left, right)) {
         val comparison = createComparison(left, right)
         failAssertion(
             "assertion failed: `(left == right)`${customMessage(message)}\n\n$comparison\n",
@@ -100,7 +100,7 @@ fun <TLeft, TRight> assertEq(left: TLeft, right: TRight, message: String? = null
  * representation. See [StrComparison] for further details.
  */
 fun <TLeft, TRight> assertStrEq(left: TLeft, right: TRight, message: String? = null) {
-    if (left != right) {
+    if (!structuralEquals(left, right)) {
         failAssertion(
             "assertion failed: `(left == right)`${customMessage(message)}\n\n" +
                 "${StrComparison.new(left, right)}\n",
@@ -115,7 +115,7 @@ fun <TLeft, TRight> assertStrEq(left: TLeft, right: TRight, message: String? = n
  * representation.
  */
 fun <TLeft, TRight> assertNe(left: TLeft, right: TRight, message: String? = null) {
-    if (left == right) {
+    if (structuralEquals(left, right)) {
         failAssertion(
             "assertion failed: `(left != right)`${customMessage(message)}\n\n" +
                 "Both sides:\n${prettyDebug(left)}\n",
@@ -124,6 +124,11 @@ fun <TLeft, TRight> assertNe(left: TLeft, right: TRight, message: String? = null
 }
 
 internal class PrettyAssertionFailure(message: String) : AssertionError(message)
+
+// assert_matches! is not ported: the upstream macro uses Rust pattern
+// matching syntax (pat, if guard, ref bindings) and stringify!(pat) for
+// diff output, which have no Kotlin equivalent. There is no Kotlin macro
+// system to capture and stringify a pattern at compile time.
 
 private fun failAssertion(message: String): Nothing {
     throw PrettyAssertionFailure(message)
@@ -160,6 +165,20 @@ private fun <TLeft, TRight> createComparison(left: TLeft, right: TRight): Any =
 
 private fun customMessage(message: String?): String =
     if (message == null) "" else ": $message"
+
+private fun structuralEquals(left: Any?, right: Any?): Boolean =
+    when {
+        left is ByteArray && right is ByteArray -> left.contentEquals(right)
+        left is ShortArray && right is ShortArray -> left.contentEquals(right)
+        left is IntArray && right is IntArray -> left.contentEquals(right)
+        left is LongArray && right is LongArray -> left.contentEquals(right)
+        left is UByteArray && right is UByteArray -> left.contentEquals(right)
+        left is UShortArray && right is UShortArray -> left.contentEquals(right)
+        left is UIntArray && right is UIntArray -> left.contentEquals(right)
+        left is ULongArray && right is ULongArray -> left.contentEquals(right)
+        left is Array<*> && right is Array<*> -> left.contentEquals(right)
+        else -> left == right
+    }
 
 private fun prettyDebug(value: Any?): String =
     when (value) {
