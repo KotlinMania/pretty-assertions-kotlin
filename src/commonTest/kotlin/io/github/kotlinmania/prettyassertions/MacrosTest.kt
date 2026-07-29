@@ -2,8 +2,8 @@
 package io.github.kotlinmania.prettyassertions
 
 import kotlin.test.Test
-import kotlin.test.assertFailsWith
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 private const val RED_LIGHT = "\u001B[31m"
@@ -60,17 +60,25 @@ class MacrosTest {
     // A string wrapper analogous to the upstream MyString(String) that
     // implements AsRef<str>. In Kotlin, CharSequence plays the role of
     // AsRef<str> — any value that can be viewed as a character sequence.
-    private class MyString(private val value: String) : CharSequence {
+    private class MyString(
+        private val value: String,
+    ) : CharSequence {
         override val length: Int get() = value.length
+
         override fun get(index: Int): Char = value[index]
+
         override fun subSequence(startIndex: Int, endIndex: Int): CharSequence =
             value.subSequence(startIndex, endIndex)
+
         override fun toString(): String = value
-        override fun equals(other: Any?): Boolean = when (other) {
-            is MyString -> value == other.value
-            is String -> value == other
-            else -> false
-        }
+
+        override fun equals(other: Any?): Boolean =
+            when (other) {
+                is MyString -> value == other.value
+                is String -> value == other
+                else -> false
+            }
+
         override fun hashCode(): Int = value.hashCode()
     }
 

@@ -113,7 +113,9 @@ internal fun writeInlineDiff(left: String, right: String): String {
     return out.toString()
 }
 
-private class InlineWriter(private val out: StringBuilder) {
+private class InlineWriter(
+    private val out: StringBuilder,
+) {
     private var style: String = ""
 
     fun writeWithStyle(value: Char, newStyle: String) {
@@ -146,9 +148,18 @@ private class InlineWriter(private val out: StringBuilder) {
 }
 
 private sealed class DiffChange {
-    data class Both(val left: String, val right: String) : DiffChange()
-    data class Left(val value: String) : DiffChange()
-    data class Right(val value: String) : DiffChange()
+    data class Both(
+        val left: String,
+        val right: String,
+    ) : DiffChange()
+
+    data class Left(
+        val value: String,
+    ) : DiffChange()
+
+    data class Right(
+        val value: String,
+    ) : DiffChange()
 }
 
 private fun diffLines(left: String, right: String): List<DiffChange> =
