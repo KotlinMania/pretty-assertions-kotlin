@@ -246,3 +246,15 @@ private fun diff(left: List<String>, right: List<String>): List<DiffChange> {
 private fun StringBuilder.appendStyled(style: String, value: String) {
     append(style).append(value).append(RESET)
 }
+
+internal fun checkPrinter(
+    printer: (String, String) -> String,
+    left: String,
+    right: String,
+    expected: String,
+) {
+    val actual = printer(left, right)
+    if (actual != expected) {
+        throw AssertionError("Expected:\n$expected\n\nActual:\n$actual")
+    }
+}
