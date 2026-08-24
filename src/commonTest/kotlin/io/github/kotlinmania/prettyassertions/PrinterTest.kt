@@ -1,4 +1,4 @@
-// port-lint: source printer.rs
+// port-lint: tests printer.rs
 package io.github.kotlinmania.prettyassertions
 
 import kotlin.test.Test
@@ -10,15 +10,16 @@ private const val RED_HEAVY = "\u001B[1;48;5;52;31m"
 private const val GREEN_HEAVY = "\u001B[1;48;5;22;32m"
 private const val RESET = "\u001B[0m"
 
+private fun checkPrinter(
+    printer: (String, String) -> String,
+    left: String,
+    right: String,
+    expected: String,
+) {
+    assertEquals(expected, printer(left, right))
+}
+
 class PrinterTest {
-    private fun checkPrinter(
-        printer: (String, String) -> String,
-        left: String,
-        right: String,
-        expected: String,
-    ) {
-        assertEquals(expected, printer(left, right))
-    }
 
     @Test
     fun writeInlineDiffEmpty() {

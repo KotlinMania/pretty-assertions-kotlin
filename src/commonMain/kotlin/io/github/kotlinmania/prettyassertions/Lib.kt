@@ -127,8 +127,8 @@ internal class PrettyAssertionFailure(
     message: String,
 ) : AssertionError(message)
 
-// assert_matches! is not ported: the upstream macro uses Rust pattern
-// matching syntax (pat, if guard, ref bindings) and stringify!(pat) for
+// Pattern-matching assertion macro is not ported: upstream macro uses pattern
+// matching syntax (guards and bindings) and compile-time stringification for
 // diff output, which have no Kotlin equivalent. There is no Kotlin macro
 // system to capture and stringify a pattern at compile time.
 

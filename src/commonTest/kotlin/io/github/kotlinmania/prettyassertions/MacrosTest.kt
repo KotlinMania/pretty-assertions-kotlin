@@ -1,4 +1,4 @@
-// port-lint: source tests/macros.rs
+// port-lint: tests tests/macros.rs
 package io.github.kotlinmania.prettyassertions
 
 import kotlin.test.Test
