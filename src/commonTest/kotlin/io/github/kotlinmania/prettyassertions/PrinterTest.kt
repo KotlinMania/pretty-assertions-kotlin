@@ -20,7 +20,6 @@ private fun checkPrinter(
 }
 
 class PrinterTest {
-
     @Test
     fun writeInlineDiffEmpty() {
         val expected = "${RED_LIGHT}<$RESET\n${GREEN_LIGHT}>$RESET\n"
